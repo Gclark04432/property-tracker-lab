@@ -1,1 +1,1 @@
-house1 = Property.new()
+# house1 = Property.new()
