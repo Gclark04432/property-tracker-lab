@@ -15,5 +15,10 @@ house2 = Property.new({
   'year_built' => 1995
   })
 
+  Property.delete_all()
+
+  house1.save()
+  house2.save()
+
 binding.pry
 nil

@@ -38,4 +38,24 @@ class Property
     return houses.map {|houses_hash| Property.new(houses_hash)}
   end
 
-end
+  def Property.delete_all()
+    db = PG.connect({ dbname: 'property_list', host: 'localhost' })
+    sql = "DELETE FROM property_list_table;"
+    db.prepare("delete_all", sql)
+    db.exec_prepared("delete_all")
+    db.close
+  end
+
+  def delete()
+    db = PG.connect({ dbname: 'property_list', host: 'localhost' })
+    sql = "DELETE FROM property_list_table WHERE id = $1;"
+    values = [@id]
+    db.prepare("delete_one", sql)
+    db.exec_prepared("delete_one", values)
+    db.close
+  end
+
+  
+
+
+  end
