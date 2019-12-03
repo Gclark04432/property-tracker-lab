@@ -2,7 +2,8 @@ require ('pg')
 
 class Property
 
-  attr_reader :id, :value, :bedrooms, :buy_or_let, :year_built
+  attr_reader :id
+  attr_accessor :value, :bedrooms, :buy_or_let, :year_built
 
   def initialize(options)
     @id = options['id'].to_i() if options['id']
@@ -55,7 +56,22 @@ class Property
     db.close
   end
 
-  
+  def update()
+    db = PG.connect({ dbname: 'property_list', host: 'localhost' })
+    sql = "
+    UPDATE property_list_table SET (
+      value,
+      bedrooms,
+      buy_or_let,
+      year_built
+    ) = ($1, $2, $3, $4)
+    WHERE id = $5;
+    "
+    values = [@value, @bedrooms, @buy_or_let, @year_built, @id]
+    db.prepare("update", sql)
+    db.exec_prepared("update", values)
+    db.close()
+  end
 
 
   end
