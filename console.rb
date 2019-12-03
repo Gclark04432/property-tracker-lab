@@ -14,3 +14,6 @@ house2 = Property.new({
   'buy_or_let' => "let",
   'year_built' => 1995
   })
+
+binding.pry
+nil
