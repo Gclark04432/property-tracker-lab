@@ -73,5 +73,15 @@ class Property
     db.close()
   end
 
+  def find()
+    db = PG.connect({ dbname: 'property_list', host: 'localhost' })
+    sql = "SELECT * FROM property_list_table WHERE id = $1;"
+    values = [@id]
+    db.prepare("find_one", sql)
+    house = db.exec_prepared("find_one", values)[0]
+    db.close()
+    return Property.new(house)
+  end
+
 
   end
